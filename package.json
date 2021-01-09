@@ -5,5 +5,15 @@
   "main": "pages/index.tsx",
   "repository": "https://github.com/nekko1119/blog",
   "author": "nekko1119 <taku50501119@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "10.0.5",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
 }
