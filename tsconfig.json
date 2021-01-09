@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "target": "esnext",
     "module": "commonjs",
     "jsx": "preserve",
     "isolatedModules": true,
+    "strict": true,
     "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

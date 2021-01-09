@@ -1,5 +1,9 @@
 node_modules/
-.next/
+
 yarn-debug.log*
 yarn-error.log*
 
+# next.js
+
+.next/
+out
