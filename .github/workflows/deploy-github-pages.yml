@@ -16,14 +16,14 @@ jobs:
           node-version: "14.15.4"
       # TODO: cache
       - name: Install dependencies
-      - run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Build next.js
-      - run: yarn build
+        run: yarn build
       - name: Export next.js
-      - run: yarn export
+        run: yarn export
       # for access _next directory
       - name: Add nojekyll
-      - run: touch ./out/.nojekyll
+        run: touch ./out/.nojekyll
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
