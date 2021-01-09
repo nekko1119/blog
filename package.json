@@ -1,0 +1,9 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "description": "my blog",
+  "main": "pages/index.tsx",
+  "repository": "https://github.com/nekko1119/blog",
+  "author": "nekko1119 <taku50501119@gmail.com>",
+  "license": "MIT"
+}
