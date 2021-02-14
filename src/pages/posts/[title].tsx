@@ -3,13 +3,21 @@ import type { GetStaticProps, GetStaticPaths } from "next";
 import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../domains/posts";
 
 type Props = PostType;
+type Params = Pick<Props, "title">
 
-function Post(props: Props) {
+const Post: React.FC<Props> = (props) => {
   return <code>{JSON.stringify(props, undefined, 2)}</code>;
 }
 
-export const getStaticProps: GetStaticProps<Props, Pick<Props, "title">> = async ({ params }) => {
-  const post = await getPost(params!.title);
+function assertExistsParams(params?: Params): asserts params is Required<Params> {
+  if (params === undefined) {
+    throw new Error("dynamic routing context was expected. but it was not dynamic routing context.");
+  }
+}
+
+export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
+  assertExistsParams(params);
+  const post = await getPost(params.title);
   return {
     props: { ...post },
   };
