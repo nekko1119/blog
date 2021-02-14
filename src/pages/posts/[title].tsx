@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
-import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../domains/posts";
+import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../../domains/posts";
 
 type Props = PostType;
 type Params = Pick<Props, "title">
