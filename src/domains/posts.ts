@@ -1,5 +1,5 @@
 import { basename, join } from "path";
-import { readFile, stat } from "fs/promises";
+import fs from "fs";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -7,6 +7,8 @@ import readdir from "recursive-readdir";
 
 dayjs.locale("ja");
 dayjs.extend(localizedFormat);
+
+const { readFile, stat } = fs.promises;
 
 export type Post = {
   title: string;

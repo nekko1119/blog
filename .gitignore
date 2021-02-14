@@ -7,3 +7,7 @@ yarn-error.log*
 
 .next/
 out
+
+# eslint
+
+.eslintcache
