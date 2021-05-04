@@ -8,7 +8,7 @@ import readdir from "recursive-readdir";
 dayjs.locale("ja");
 dayjs.extend(localizedFormat);
 
-const { readFile, stat } = fs.promises;
+const { readFile } = fs.promises;
 
 export type Post = {
   title: string;
@@ -19,8 +19,10 @@ export type Post = {
 
 const postsDirectoryPath = join(process.cwd(), "posts");
 
-function formatDate(date: Date): string {
-  return dayjs(date).format("LLLL");
+function formatDate(date: string): string {
+  // https://day.js.org/docs/en/display/format#localized-formats
+  // YYYY/MM/DD
+  return dayjs(date).format("L");
 }
 
 export function getFilename(path: string): string {
@@ -41,14 +43,13 @@ export async function getPost(title: string): Promise<Post> {
     throw new Error(`${title} was not found in post paths: ${paths}`);
   }
 
-  const { ctime, mtime } = await stat(targetPath);
   const file = await readFile(targetPath);
   const content = file.toString();
 
   return {
     content,
     title,
-    createdAt: formatDate(ctime),
-    updatedAt: formatDate(mtime),
+    createdAt: formatDate('2021-05-03'),
+    updatedAt: formatDate('2021-05-03'),
   };
 }
