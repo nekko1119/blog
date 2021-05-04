@@ -4,17 +4,25 @@ import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import readdir from "recursive-readdir";
+import matter from 'gray-matter';
 
 dayjs.locale("ja");
 dayjs.extend(localizedFormat);
 
 const { readFile } = fs.promises;
 
+export type Meta = {
+  title?: string;
+  image?: string;
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export type Post = {
-  title: string;
+  path: string;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  meta: Meta;
 };
 
 const postsDirectoryPath = join(process.cwd(), "posts");
@@ -33,23 +41,29 @@ export async function getPostPathsAll(postsDirPath = postsDirectoryPath): Promis
   return await readdir(postsDirPath);
 }
 
-export async function getPost(title: string): Promise<Post> {
+export async function getPost(path: string): Promise<Post> {
   const paths = await getPostPathsAll();
-  const targetPath = paths.find((path) => {
-    return title === getFilename(path);
+  const targetPath = paths.find((postPath) => {
+    return path === getFilename(postPath);
   });
 
   if (targetPath === undefined) {
-    throw new Error(`${title} was not found in post paths: ${paths}`);
+    throw new Error(`${path} was not found in post paths: ${paths.map(getFilename)}`);
   }
 
   const file = await readFile(targetPath);
-  const content = file.toString();
+  const { data, content } = matter(file) as { data: Meta, content: string };
+
+  if (data.createdAt) {
+    data.createdAt = formatDate(data.createdAt);
+  }
+  if (data.updatedAt) {
+    data.updatedAt = formatDate(data.updatedAt);
+  }
 
   return {
     content,
-    title,
-    createdAt: formatDate('2021-05-03'),
-    updatedAt: formatDate('2021-05-03'),
+    path,
+    meta: data
   };
 }
