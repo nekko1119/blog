@@ -1,7 +1,24 @@
-import remark from 'remark'
-import html from 'remark-html'
+import unifined from "unified";
+import parser from "remark-parse";
+import gfm from "remark-gfm";
+import rehype from "remark-rehype";
+import rehypeShiki from "@leafac/rehype-shiki";
+import { getHighlighter } from "shiki";
+import html from "rehype-stringify";
 
-export default async function markdownToHtml(markdown: string) {
-  const result = await remark().use(html).process(markdown)
-  return result.toString()
+export async function markdownToHtml(markdown: string): Promise<string> {
+  const result = await unifined()
+    // parse markdown, and make mdast (markdown AST)
+    .use(parser)
+    // support Github Flavored Markdown (ex. table)
+    .use(gfm)
+    // convert mdast to hast (HTML AST)
+    .use(rehype)
+    // syntax highlight for code block
+    .use(rehypeShiki, { highlighter: await getHighlighter({ theme: "dark-plus" }) })
+    // generate html
+    .use(html)
+    // input and execution
+    .process(markdown);
+  return result.toString();
 }

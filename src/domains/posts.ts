@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import readdir from "recursive-readdir";
-import matter from 'gray-matter';
+import matter, { Input } from "gray-matter";
+import { markdownToHtml } from "./markdownToHtml";
 
 dayjs.locale("ja");
 dayjs.extend(localizedFormat);
@@ -12,15 +13,15 @@ dayjs.extend(localizedFormat);
 const { readFile } = fs.promises;
 
 export type Meta = {
+  path: string;
   title?: string;
   image?: string;
   description?: string;
   createdAt?: string;
   updatedAt?: string;
-}
+};
 
 export type Post = {
-  path: string;
   content: string;
   meta: Meta;
 };
@@ -31,6 +32,27 @@ function formatDate(date: string): string {
   // https://day.js.org/docs/en/display/format#localized-formats
   // YYYY/MM/DD
   return dayjs(date).format("L");
+}
+
+async function formatMatterToPost<I extends Input>({
+  path,
+  matterData,
+}: Readonly<{ path: string; matterData: matter.GrayMatterFile<I> }>): Promise<Post> {
+  const post = { ...matterData };
+  post.content = await markdownToHtml(post.content);
+  if (post.data.createdAt) {
+    post.data.createdAt = formatDate(post.data.createdAt);
+  }
+  if (post.data.pdatedAt) {
+    post.data.updatedAt = formatDate(post.data.updatedAt);
+  }
+  return {
+    content: post.content,
+    meta: {
+      path,
+      ...post.data,
+    },
+  };
 }
 
 export function getFilename(path: string): string {
@@ -52,18 +74,7 @@ export async function getPost(path: string): Promise<Post> {
   }
 
   const file = await readFile(targetPath);
-  const { data, content } = matter(file) as { data: Meta, content: string };
-
-  if (data.createdAt) {
-    data.createdAt = formatDate(data.createdAt);
-  }
-  if (data.updatedAt) {
-    data.updatedAt = formatDate(data.updatedAt);
-  }
-
-  return {
-    content,
-    path,
-    meta: data
-  };
+  const matterData = matter(file);
+  const post = await formatMatterToPost({ path, matterData });
+  return post;
 }

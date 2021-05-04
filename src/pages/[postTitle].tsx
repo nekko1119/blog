@@ -8,7 +8,7 @@ type Params = {
 }
 
 const Post: React.FC<Props> = (props) => {
-  return <code>{JSON.stringify(props, undefined, 2)}</code>;
+  return <><code>{JSON.stringify(props.meta, undefined, 2)}</code><div dangerouslySetInnerHTML={{ __html: props.content }} /></>;
 }
 
 function assertExistsParams(params?: Params): asserts params is Required<Params> {
