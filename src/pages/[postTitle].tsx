@@ -1,9 +1,11 @@
 import React from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
-import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../../domains/posts";
+import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../domains/posts";
 
 type Props = PostType;
-type Params = Pick<Props, "title">
+type Params = {
+  postTitle: string;
+}
 
 const Post: React.FC<Props> = (props) => {
   return <code>{JSON.stringify(props, undefined, 2)}</code>;
@@ -15,23 +17,31 @@ function assertExistsParams(params?: Params): asserts params is Required<Params>
   }
 }
 
+/**
+ * get props on `/[postTitle]` is accessed.
+ * `/[postTitle]` must be included in static paths.
+ * if `/postTitle]` is not included in static paths, it returns 404 page.
+ */
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   assertExistsParams(params);
-  const post = await getPost(params.title);
+  const post = await getPost(params.postTitle);
   return {
     props: { ...post },
   };
 };
 
-export const getStaticPaths: GetStaticPaths<Pick<Props, "title">> = async () => {
+/**
+ * enumerate pre-built page paths
+ */
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const filePaths = await getPostPathsAll();
 
-  const urlPaths = filePaths.map((path) => ({
-    params: { title: getFilename(path) },
+  const paths = filePaths.map((path) => ({
+    params: { postTitle: getFilename(path) }
   }));
 
   return {
-    paths: urlPaths,
+    paths,
     fallback: false,
   };
 };
