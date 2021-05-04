@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.4
         with:
-          node-version: "14.15.4"
+          node-version: '14'
       # TODO: cache
       - name: Install dependencies
         run: yarn install --frozen-lockfile
