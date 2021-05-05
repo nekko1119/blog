@@ -1,15 +1,22 @@
 import React from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../domains/posts";
+import { Main } from "../components/pages/Main";
 
 type Props = PostType;
+
 type Params = {
   postTitle: string;
-}
+};
 
 const Post: React.FC<Props> = (props) => {
-  return <><code>{JSON.stringify(props.meta, undefined, 2)}</code><div dangerouslySetInnerHTML={{ __html: props.content }} /></>;
-}
+  return (
+    <Main>
+      <code>{JSON.stringify(props.meta, undefined, 2)}</code>
+      <div dangerouslySetInnerHTML={{ __html: props.content }} />
+    </Main>
+  );
+};
 
 function assertExistsParams(params?: Params): asserts params is Required<Params> {
   if (params === undefined) {
@@ -37,7 +44,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const filePaths = await getPostPathsAll();
 
   const paths = filePaths.map((path) => ({
-    params: { postTitle: getFilename(path) }
+    params: { postTitle: getFilename(path) },
   }));
 
   return {

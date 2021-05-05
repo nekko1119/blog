@@ -1,5 +1,5 @@
 import { basename, join } from "path";
-import fs from "fs";
+import { readFile } from "fs/promises";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -9,8 +9,6 @@ import { markdownToHtml } from "./markdownToHtml";
 
 dayjs.locale("ja");
 dayjs.extend(localizedFormat);
-
-const { readFile } = fs.promises;
 
 export type Meta = {
   path: string;
