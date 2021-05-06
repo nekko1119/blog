@@ -5,7 +5,6 @@ type Props = {
   title?: string;
   description?: string;
   keywords?: string[];
-  hostname?: string;
   /**
    * relative path from `/public`
    */
@@ -16,9 +15,9 @@ export const Head: FC<Props> = ({
   title = "blog.nekko1119.org",
   description,
   keywords,
-  hostname,
   relativeImagePath = "/image.png",
 }) => {
+  const hostname = process.env.HOSTNAME;
   const imageFullPath = hostname ? `${hostname}${relativeImagePath}` : null;
   return (
     <NextHead>
@@ -31,12 +30,12 @@ export const Head: FC<Props> = ({
       {hostname && <meta property="og:url" content={hostname} key="url" />}
       {imageFullPath && <meta property="og:image" content={imageFullPath} key="image" />}
       <meta property="og:site_name" content={title} key="site_name" />
-      <meta name="twitter:card" content="summary" key="twitter:card" />
-      <meta name="twitter:site" content="@nekko1119" key="twitter:site" />
-      <meta name="twitter:creator" content="@nekko1119" key="twitter:creator" />
-      <meta name="twitter:title" content={title} key="twitter:title" />
-      {description && <meta name="twitter:description" content={description} key="twitter:description" />}
-      {imageFullPath && <meta name="twitter:image" content={imageFullPath} key="twitter:image" />}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@nekko1119" />
+      <meta name="twitter:creator" content="@nekko1119" />
+      <meta name="twitter:title" content={title} />
+      {description && <meta name="twitter:description" content={description} />}
+      {imageFullPath && <meta name="twitter:image" content={imageFullPath} />}
     </NextHead>
   );
 };
