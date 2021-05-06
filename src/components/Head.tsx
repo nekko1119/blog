@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { default as NextHead } from "next/head";
-import { useRouter } from "next/router";
+import NextHead from "next/head";
 
 type Props = {
   title?: string;
@@ -20,7 +19,6 @@ export const Head: FC<Props> = ({
   hostname,
   relativeImagePath = "/image.png",
 }) => {
-  const router = useRouter();
   const imageFullPath = hostname ? `${hostname}${relativeImagePath}` : null;
   return (
     <NextHead>
@@ -30,7 +28,7 @@ export const Head: FC<Props> = ({
       {description && <meta property="og:description" content={description} key="description" />}
       {keywords && keywords.length !== 0 && <meta name="keywords" content={keywords.join(",")} key="keywords" />}
       <meta property="og:type" content="blog" key="type" />
-      {hostname && <meta property="og:url" content={`${hostname}${router.asPath}`} key="url" />}
+      {hostname && <meta property="og:url" content={hostname} key="url" />}
       {imageFullPath && <meta property="og:image" content={imageFullPath} key="image" />}
       <meta property="og:site_name" content={title} key="site_name" />
       <meta name="twitter:card" content="summary" key="twitter:card" />
