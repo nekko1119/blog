@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const paths = await getPostPathsAll();
   const posts = await Promise.all(paths.map(async (path) => await getPost(getFilename(path))));
 
-  const topFile = await readFile(join(process.cwd(), "assets", "top.md"));
+  const topFile = await readFile(join(process.cwd(), "public", "top.md"));
   const topHtml = await markdownToHtml(topFile.toString());
   return { props: { posts, content: topHtml } };
 };

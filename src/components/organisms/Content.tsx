@@ -50,15 +50,31 @@ export const Content = styled(Box).attrs<Props, DOMAttributes<never>>(({ html })
       background: #1e1e1e;
       color: #d4d4d4;
       padding: 1rem;
+      font-size: 85%;
     }
     code {
       font-family: "Consolas", "Menlo", monospace;
+      margin: 0;
+      padding: 0.1rem 0.2rem;
+      font-size: 85%;
+      background-color: #efefef;
+      color: #e01e5a;
+      border: 1px solid #dddddd;
+      border-radius: 2px;
+    }
+    pre code {
+      padding: 0;
+      background-color: initial;
+      line-height: inherit;
+      font-size: inherit;
+      border: 0;
+      color: inherit;
     }
     blockquote {
       padding: 0 1rem;
       border-left: 0.25rem solid #dddddd;
       margin: 0;
-      color: #7d7d7d;
+      color: #a0a0a0;
     }
     table {
       border-spacing: 0;
