@@ -23,6 +23,7 @@ export const Head: FC<Props> = ({
     <NextHead>
       <title>{title}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta property="description" content={description} key="description" />
       <meta property="og:title" content={title} key="title" />
       <meta property="og:description" content={description} key="description" />
       {keywords && keywords.length !== 0 && <meta name="keywords" content={keywords.join(",")} key="keywords" />}
@@ -30,7 +31,7 @@ export const Head: FC<Props> = ({
       {hostname && <meta property="og:url" content={hostname} key="url" />}
       {imageFullPath && <meta property="og:image" content={imageFullPath} key="image" />}
       <meta property="og:site_name" content={title} key="site_name" />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@nekko1119" />
       <meta name="twitter:creator" content="@nekko1119" />
       <meta name="twitter:title" content={title} />
