@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext, FC } from "react";
 import Link from "next/link";
 import { Box, Flex, Text } from "rebass/styled-components";
 import { ThemeContext } from "../../themeContext";
 
-export const GlobalHeader = () => {
+export const GlobalHeader: FC<Record<string, never>> = () => {
   const { toggleTheme } = useContext(ThemeContext);
   return (
     <Box
@@ -20,10 +20,10 @@ export const GlobalHeader = () => {
         borderBottomStyle: "solid",
       }}
     >
-      <Flex height="100%" alignItems="center" justifyContent="space-between" mx={6}>
+      <Flex height="100%" alignItems="center" justifyContent="space-between" mx="40px">
         <Text as="h1">
           <Link href="/" passHref>
-            <Box as="a" fontSize="1.5rem" color="text">
+            <Box as="a" fontSize="1.5rem" color="text" sx={{ textDecoration: "none" }}>
               blog.nekko1119.org
             </Box>
           </Link>
