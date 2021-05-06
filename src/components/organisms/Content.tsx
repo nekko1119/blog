@@ -12,7 +12,7 @@ export type Props = {
  */
 export const Content = styled(Box).attrs<Props, DOMAttributes<never>>(({ html }) => ({
   dangerouslySetInnerHTML: { __html: html },
-}))`
+}))<Props>`
   & {
     h1,
     h2 {

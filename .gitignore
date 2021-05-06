@@ -11,3 +11,5 @@ out
 # eslint
 
 .eslintcache
+
+.env*.local
