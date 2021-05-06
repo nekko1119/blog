@@ -5,13 +5,16 @@ import { normalize } from "styled-normalize";
 // TODO support toggle theme
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
+  * {
+    box-sizing: border-box;
+  }
   p {
     font-size: 1rem;
     line-height: 2rem;
   }
   a {
-    color: ${lightTheme.colors.anchor};
-    text-decoration: none
+    color: ${lightTheme.colors.text};
+    text-decoration: underline;
   }
   li {
       font-size: 1rem;

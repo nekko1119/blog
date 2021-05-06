@@ -6,10 +6,12 @@ export type Theme = {
     anchor: string;
   };
   space: number[];
+  breakpoints: string[];
 };
 
-const commonTheme: Pick<Theme, "space"> = {
+const commonTheme: Pick<Theme, "space" | "breakpoints"> = {
   space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36],
+  breakpoints: ["640px"],
 };
 
 export const lightTheme: Theme = {

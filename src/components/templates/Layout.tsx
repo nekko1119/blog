@@ -8,7 +8,13 @@ export type Props = {
 export const Layout: React.VFC<Props> = ({ children, ...flexProps }) => {
   return (
     <Flex justifyContent="center" {...flexProps}>
-      <Box maxWidth="640px">{children}</Box>
+      <Box
+        minWidth={[null, "calc(640px - (100vw - 100%))"]}
+        maxWidth={["calc(100vw - (100vw - 100%))", "calc((100vw/ 3) + 40px)"]}
+        px="40px"
+      >
+        {children}
+      </Box>
     </Flex>
   );
 };

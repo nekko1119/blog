@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Post, getPostPathsAll, getPost, getFilename } from "../domains/posts";
 import { Main } from "../components/pages/Main";
 import { markdownToHtml } from "../domains/markdownToHtml";
+
 type Props = {
   posts: Array<Post>;
   content: string;

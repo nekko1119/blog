@@ -2,6 +2,7 @@ import React from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import { Post as PostType, getPost, getPostPathsAll, getFilename } from "../domains/posts";
 import { Main } from "../components/pages/Main";
+import { Content } from "../components/organisms/Content";
 
 type Props = PostType;
 
@@ -13,7 +14,7 @@ const Post: React.FC<Props> = (props) => {
   return (
     <Main>
       <code>{JSON.stringify(props.meta, undefined, 2)}</code>
-      <div dangerouslySetInnerHTML={{ __html: props.content }} />
+      <Content html={props.content} />
     </Main>
   );
 };
