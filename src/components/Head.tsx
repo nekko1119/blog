@@ -13,7 +13,7 @@ type Props = {
 
 export const Head: FC<Props> = ({
   title = "blog.nekko1119.org",
-  description,
+  description = "個人ブログです。",
   keywords,
   relativeImagePath = "/image.png",
 }) => {
@@ -24,7 +24,7 @@ export const Head: FC<Props> = ({
       <title>{title}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta property="og:title" content={title} key="title" />
-      {description && <meta property="og:description" content={description} key="description" />}
+      <meta property="og:description" content={description} key="description" />
       {keywords && keywords.length !== 0 && <meta name="keywords" content={keywords.join(",")} key="keywords" />}
       <meta property="og:type" content="blog" key="type" />
       {hostname && <meta property="og:url" content={hostname} key="url" />}
@@ -34,7 +34,7 @@ export const Head: FC<Props> = ({
       <meta name="twitter:site" content="@nekko1119" />
       <meta name="twitter:creator" content="@nekko1119" />
       <meta name="twitter:title" content={title} />
-      {description && <meta name="twitter:description" content={description} />}
+      <meta name="twitter:description" content={description} />
       {imageFullPath && <meta name="twitter:image" content={imageFullPath} />}
     </NextHead>
   );
