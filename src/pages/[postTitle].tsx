@@ -5,7 +5,7 @@ import { Main } from "../components/pages/Main";
 import { Content } from "../components/organisms/Content";
 import { Head } from "../components/Head";
 
-type Props = PostType & { hostname: string };
+type Props = PostType;
 
 type Params = {
   postTitle: string;
@@ -14,7 +14,7 @@ type Params = {
 const Post: React.FC<Props> = (props) => {
   return (
     <Main>
-      <Head title={props.meta.title} description={props.meta.description} hostname={props.hostname} />
+      <Head title={props.meta.title} description={props.meta.description} />
       <code>{JSON.stringify(props.meta, undefined, 2)}</code>
       <Content html={props.content} />
     </Main>
@@ -35,9 +35,8 @@ function assertExistsParams(params?: Params): asserts params is Required<Params>
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   assertExistsParams(params);
   const post = await getPost(params.postTitle);
-  const hostname = process.env.HOSTNAME;
   return {
-    props: { ...post, hostname },
+    props: { ...post },
   };
 };
 

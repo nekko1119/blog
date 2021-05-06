@@ -11,13 +11,12 @@ import { markdownToHtml } from "../domains/markdownToHtml";
 type Props = {
   posts: Array<Post>;
   content: string;
-  hostname: string;
 };
 
-const Component: React.FC<Props> = ({ posts, content, hostname }) => {
+const Component: React.FC<Props> = ({ posts, content }) => {
   return (
     <Main>
-      <Head hostname={hostname} />
+      <Head />
       <div dangerouslySetInnerHTML={{ __html: content }} />
       <ul>
         {posts.map((post) => (
@@ -39,9 +38,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const topFile = await readFile(join(process.cwd(), "index.md"));
   const topHtml = await markdownToHtml(topFile.toString());
 
-  const hostname = process.env.HOSTNAME;
-
-  return { props: { posts, content: topHtml, hostname } };
+  return { props: { posts, content: topHtml } };
 };
 
 export default Component;
