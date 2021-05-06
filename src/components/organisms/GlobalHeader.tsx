@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Box, Flex, Text } from "rebass/styled-components";
 import { ThemeContext } from "../../themeContext";
 
-export const GlobalHeader: FC<{}> = () => {
+export const GlobalHeader: FC<Record<string, never>> = () => {
   const { toggleTheme } = useContext(ThemeContext);
   return (
     <Box
