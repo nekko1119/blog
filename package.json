@@ -43,7 +43,7 @@
     "unified": "^9.2.1"
   },
   "devDependencies": {
-    "@types/node": "^15.0.1",
+    "@types/node": "^15.6.1",
     "@types/react": "^17.0.4",
     "@types/react-dom": "^17.0.3",
     "@types/rebass": "^4.0.8",
